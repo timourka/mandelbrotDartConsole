@@ -1,19 +1,19 @@
-const bool upscaled = true;
+const bool upscaled = true; // использовать псевдо графику?
+const SymbolsVariant usingSymbolsVariant =
+    SymbolsVariant.unicodVariant; // какой вариант символов?
+const InterestingPoint usingInterestingPoint =
+    InterestingPoint.fullVue; // какой кусочек множества?
 
 enum SymbolsVariant {
   asciiVariant,
   unicodVariant,
 }
 
-const SymbolsVariant usingSymbolsVariant = SymbolsVariant.unicodVariant;
-
 enum InterestingPoint {
   zip,
   fullVue,
   littleMandelbrot,
 }
-
-const InterestingPoint usingInterestingPoint = InterestingPoint.fullVue;
 
 Future<int> mandelbrotIterations(
     double cx, double cy, int maxIterations) async {
@@ -111,24 +111,23 @@ Future<void> main() async {
     for (int y = 0; y < height; y += 2) {
       String row = '';
       for (int x = 0; x < width; x += 2) {
-        //               0    1    2  3    4   5    6   7  8    9   10   11  12   13    14   15
         const pixels = [
-          '▖',
-          '▗',
-          '▝',
-          '▘',
-          '▃',
-          '▐',
-          '▀',
-          '▌',
-          '▚',
-          '▞',
-          '▙',
-          '▟',
-          '▜',
-          '▛',
-          '□',
-          '█'
+          '▖', // 0
+          '▗', // 1
+          '▝', // 2
+          '▘', // 3
+          '▃', // 4
+          '▐', // 5
+          '▀', // 6
+          '▌', // 7
+          '▚', // 8
+          '▞', // 9
+          '▙', // 10
+          '▟', // 11
+          '▜', // 12
+          '▛', // 13
+          '□', // 14
+          '█' // 15
         ];
         List<bool> canPixel = List<bool>.filled(pixels.length, true);
         //LT
@@ -213,7 +212,8 @@ Future<void> main() async {
         }
         for (int i = 0; i < pixels.length; i++) {
           if (canPixel[i]) {
-            if (i == 14) {
+            if (i == 14 &&
+                usingSymbolsVariant == SymbolsVariant.unicodVariant) {
               row += result[y][x];
             } else {
               row += pixels[i];
